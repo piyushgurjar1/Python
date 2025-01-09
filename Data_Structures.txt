@@ -1,0 +1,175 @@
+Ques 1: 
+Create a program to manage a to-do list with options for adding, updating, removing, and viewing tasks. Use lists and dictionaries to store and manipulate data.
+
+Code:
+tasks = []
+
+def add_task():
+    task_name = input("Enter the task name: ")    
+    tasks.append(task_name)
+    print(f"Task '{task_name}' has been added!")
+
+def update_task():
+    task_name = input("Enter the task name to update: ")
+    if task_name in tasks:
+        new_name = input(f"Enter the new name for '{task_name}': ")
+        tasks[tasks.index(task_name)] = new_name
+        print(f"Task '{task_name}' has been updated to '{new_name}'!")
+    else:
+        print("Task not found.")
+
+def remove_task():
+    task_name = input("Enter the task name to remove: ")
+    if task_name in tasks:
+        tasks.remove(task_name)
+        print(f"'{task_name}' has been removed!")
+    else: 
+        print("Task not found.")
+
+def view_tasks():
+    if not tasks:
+        print("No tasks available.")
+    else:
+        for index, task in enumerate(tasks, start=1):
+            print(f"{index}. {task}")
+
+print('''To-Do List Menu:
+    1. Add a task
+    2. Update a task
+    3. Remove a task
+    4. View all tasks''')
+
+while True:  
+    choice = input("Choose an option (1-4): ")
+
+    if choice == "1":
+        add_task()
+    elif choice == "2":
+        update_task()
+    elif choice == "3":
+        remove_task()
+    elif choice == "4":
+        view_tasks()
+    else:
+        print("Invalid option.")
+        break
+
+
+Ques 2: 
+Write a program to manage a voting system where each voter can vote only once. Use sets to track voters and dictionaries to count votes for candidates.
+
+Code:
+voters = set()
+vote_count = {"Piyush": 0, "Pavesh": 0, "Bajpai": 0}
+
+def vote():
+    voter_name = input("Enter your name: ")
+    if voter_name in voters:
+        print(f"{voter_name}, you have already voted!")
+        return    
+    candidate = input("Enter the candidate you want to vote for: ")
+
+    if candidate not in vote_count:
+        print("Invalid candidate!")
+        return
+    vote_count[candidate] += 1
+    voters.add(voter_name)
+    print(f"Thank you for voting!")
+
+def show_results():
+    print("Voting Results:")
+    for candidate, votes in vote_count.items():
+        print(f"{candidate}: {votes} votes")
+
+print('''Menu:
+1. Vote
+2. Show Results''')
+
+while True:    
+    choice = input("Choose an option (1-2): ")
+
+    if choice == "1":
+        vote()
+    elif choice == "2":
+        show_results()
+    else:
+        print("Invalid choice")
+        break
+
+
+Ques 3: 
+Build a library catalog that supports searching by title, author, or category. Use dictionaries and lists for efficient data organization.
+
+Code:
+def input_catalog():
+    catalog = []
+    n = int(input("Enter the number of books you want to add: "))
+    while True:
+        title = input("Enter the book title: ")
+        author = input("Enter the author: ")
+        category = input("Enter the category: ")
+        catalog.append({"title": title, "author": author, "category": category})
+        print("Book added to catalog.")
+        if len(catalog) == n:
+            break
+    return catalog
+
+def search_by_title(catalog, title):
+    results = []
+    for book in catalog:
+        if title.lower() == book["title"].lower():
+            results.append(book)
+    return results
+
+def search_by_author(catalog, author):
+    results = []
+    for book in catalog:
+        if author.lower() == book["author"].lower():
+            results.append(book)
+    return results
+
+def search_by_category(catalog, category):
+    results = []
+    for book in catalog:
+        if category.lower() == book["category"].lower():
+            results.append(book)
+    return results
+
+def display_books(books):
+    if books:
+        for book in books:
+            print(f"Title: {book['title']}, Author: {book['author']}, Category: {book['category']}")
+    else:
+        print("No books found.")
+
+print("Welcome to the Library Catalog System")
+
+library = input_catalog()
+
+print('''Library Catalog Menu:
+1. Search by Title
+2. Search by Author
+3. Search by Category
+4. Exit''')
+
+while True:
+    choice = input("Choose an option (1-4): ")
+
+    if choice == "1":
+        title = input("Enter the title to search for: ")
+        books = search_by_title(library, title)
+        display_books(books)
+
+    elif choice == "2":
+        author = input("Enter the author to search for: ")
+        books = search_by_author(library, author)
+        display_books(books)
+
+    elif choice == "3":
+        category = input("Enter the category to search for: ")
+        books = search_by_category(library, category)
+        display_books(books)
+
+    else:
+        print("Invalid option")
+        break
